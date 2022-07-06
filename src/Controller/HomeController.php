@@ -2,8 +2,8 @@
 
 namespace App\Controller;
 
+use App\Repository\ProductRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
@@ -12,19 +12,11 @@ class HomeController extends AbstractController
     /**
      * @Route("/home", name="app_home")
      */
-    public function index(): JsonResponse
+    public function index(ProductRepository $repo): Response
     {
-        return $this->json([
-            'message' => 'Welcome to your new controller!',
-            'path' => 'src/Controller/HomeController.php',
+        $product = $repo->findAll();
+        return $this->render('View/content.html.twig',[
+            'product'=> $product
         ]);
-    }
-
-    /**
-     * @Route("/login", name="login")
-     */
-    public function FunctionName(): Response
-    {
-        return $this->render('$0.html.twig', []);
     }
 }
