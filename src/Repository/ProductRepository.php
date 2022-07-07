@@ -38,6 +38,23 @@ class ProductRepository extends ServiceEntityRepository
             $this->getEntityManager()->flush();
         }
     }
+    public static function getPostList(): array
+    {
+        $products = array();
+
+        for ($i = 0; $i < 5; $i++) {
+            $p = new Product();
+            $p->setProductName(sprintf("%d", $i));
+            $p->setPrice(sprintf("%d", $i));
+            $p->setDetailDesc(sprintf("content %d", $i));
+            $p->setProDate(new \DateTime());
+            $p->setOldPrice(sprintf("%d", $i));
+            $p->setSmallDesc("Quang");
+
+            $products[] = $p;
+        }
+        return $products;
+    }
 
 //    /**
 //     * @return Product[] Returns an array of Product objects

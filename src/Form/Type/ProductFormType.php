@@ -28,8 +28,7 @@ class ProductFormType extends AbstractType
         ->add('Price', TextType::class)
         ->add('oldPrice', TextType::class)
         ->add('SmallDesc', TextType::class)
-        ->add('DetailDesc', TextType::class)
-        
+        ->add('DetailDesc', TextType::class) 
         ->add('ProDate', DateType::class)
         ->add('Pro_qty', TextType::class)
         ->add('supplier', EntityType::class,[

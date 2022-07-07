@@ -91,7 +91,7 @@ class CategoryController extends AbstractController
     }
  
     /**
-     * @Route("/delete/{id}", name="deleteCategory")
+     * @Route("/delete/Category{id}", name="deleteCategory")
      */
     public function deleteCategoryFunction(CategoryRepository $repo, ManagerRegistry $doc, $id): Response
     {

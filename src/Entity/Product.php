@@ -50,8 +50,8 @@ class Product
      */
     private $Pro_qty;
 
-    /**
-     * @ORM\Column(type="string", length=255)
+/**
+     * @ORM\ManyToOne(targetEntity=Supplier::class, inversedBy="products")
      */
 
     private $supplier;

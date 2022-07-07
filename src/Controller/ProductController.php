@@ -26,6 +26,24 @@ class ProductController extends AbstractController
             'product'=> $product
         ]);
     }
+    /**
+     * @Route("/product/show/{id}", name="ProductShow")
+     */
+    public function showView($id)
+    {
+        $products = ProductRepository::getPostList();
+        $productTemp = new Product();
+
+        foreach ($products as $product) {
+            if ($product->getID() == $id) {
+                $productTemp = $product;
+                break;
+            }
+        }
+        return $this->render('Product/show.html.twig', [
+            'product' => $productTemp
+        ]);
+    }
    /**
    * @Route("/product/add", name="addProduct")
    */
@@ -73,36 +91,36 @@ class ProductController extends AbstractController
     /**
      * @Route("product/edit/{id}", name="editProduct")
      */
-    public function editProductAction(ManagerRegistry $res, Request $req, ValidatorInterface $valid, ProductRepository $repo, $id): Response
+    public function editProductAction(ManagerRegistry $res, Request $req, ValidatorInterface $valid, SluggerInterface $slugger, ProductRepository $repo, $id): Response
     {
-      $product = $repo->find($id);
-      $productForm = $this->createForm(ProductFormType::class, $product);
-      $productForm->handleRequest($req);
-      $entity = $res->getManager();
-      if($productForm->isSubmitted() && $productForm->isValid()) {
-        $data = $productForm->getData();
-        $product->setProductName($data->getProductName());
-        $product->setPrice($data->getPrice());
-        $product->setOldPrice($data->getOldPrice());
-        $product->setSmallDesc($data->getSmallDesc());
-        $product->setDetailDesc($data->getDetailDesc());
-        $product->setProDate($data->getProDate());
-        $product->setProQty($data->getProQty());
-        $product->setSupplier($data->getSupplier());
-        $product->setCategories($data->getCategories());
-        $product->setImage($data->getImage());
-        $err = $valid->validate($product);
-        if (count($err) > 0) {
-          $string_err = (string)$err;
-          return new Response($string_err, 400);
+        $product = $repo->find($id);
+        $productForm = $this->createForm(ProductFormType::class, $product);
+        $productForm->handleRequest($req);
+        $entity = $res->getManager();
+        if($productForm->isSubmitted() && $productForm->isValid()) {
+          $data = $productForm->getData();
+          $product->setProductName($data->getProductName());
+          $product->setPrice($data->getPrice());
+          $product->setOldPrice($data->getOldPrice());
+          $product->setSmallDesc($data->getSmallDesc());
+          $product->setDetailDesc($data->getDetailDesc());
+          $product->setProDate($data->getProDate());
+          $product->setProQty($data->getProQty());
+          $product->setSupplier($data->getSupplier());
+          $product->setCategories($data->getCategories());
+          $product->setImage($data->getImage());
+          $err = $valid->validate($product);
+          if (count($err) > 0) {
+            $string_err = (string)$err;
+            return new Response($string_err, 400);
+          }
+          $entity->persist($product);
+          $entity->flush();
+          return $this->redirectToRoute("app_product");     
         }
-        $entity->persist($product);
-        $entity->flush();
-        return $this->redirectToRoute("app_product");
-      }
-      return $this->render('product/add.html.twig', [
-        'form' => $productForm->createView()
-      ]);
+        return $this->render('product/add.html.twig', [
+          'form' => $productForm->createView()
+        ]);
     }
     /**
      * @Route("product/delete/{id}", name="deleteProduct")
@@ -116,12 +134,12 @@ class ProductController extends AbstractController
             $this->createNotFoundException('Invalid ID ' . $id);
         }
         $entity = $doc->getManager();
-        $entity->remove($product);
+        $entity->remove($product);  
         $entity->flush();
         return $this->redirectToRoute("app_product");
     }
      /**
-     * @Route("/post/getImage/{filename}", name="get_image")
+     * @Route("/product/getImage/{filename}", name="get_image")
      */
     public function getImage($filename): Response
     {
