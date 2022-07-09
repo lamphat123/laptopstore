@@ -54,7 +54,7 @@
                             </a>
                         </td>
                         <td style='text-align:center'>
-                            <a href="{{path('deleteSupplier', {id:s.id})}}" onclick=" return deleteConfirm(Are you sure to delete?)">
+                            <a href="{{path('deleteSupplier', {id:s.id})}}" onclick="return confirm('Are you sure to delete?')">
                             <img src='Image/delete.jpg' width="16" height="16" border="0" /></a></td>
                     </tr>
             {% endfor %}
