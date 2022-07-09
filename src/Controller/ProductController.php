@@ -29,19 +29,12 @@ class ProductController extends AbstractController
     /**
      * @Route("/product/show/{id}", name="ProductShow")
      */
-    public function showView($id)
+    public function showView(ProductRepository $repo, $id)
     {
-        $products = ProductRepository::getPostList();
-        $productTemp = new Product();
+        $product = $repo->find($id);
 
-        foreach ($products as $product) {
-            if ($product->getID() == $id) {
-                $productTemp = $product;
-                break;
-            }
-        }
         return $this->render('Product/show.html.twig', [
-            'product' => $productTemp
+            'products' => $product
         ]);
     }
    /**

@@ -1,56 +1,66 @@
 {% extends "base.html.twig" %}
 {% block body %}
-  <style>
-  .fakeimg {
-    height: 200px;
-    background: #aaa;
-  }
-  .container{
-	text-align: center;
-  }
-  </style>
-<br>
-<br>
-<body>
-<div class="jumbotron text-center" style="margin-bottom:0">
-<img src="Image/Laptopstore.png">
-</div>
+	<style>
+		.fakeimg {
+			height: 200px;
+			background: #aaa;
+		}
+		.container {
+			text-align: center;
+		}
+	</style>
+	<br>
+	<br>
+	<body>
+		<div class="jumbotron text-center" style="margin-bottom:0">
+			<img src="Image/Laptopstore.png">
+		</div>
 
-<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
-  <a class="navbar-brand" href="#"></a>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
-    <span class="navbar-toggler-icon"></span>
-  </button>
-  <div class="collapse navbar-collapse" id="collapsibleNavbar">
-    <ul class="navbar-nav">
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="#"></a>
-      </li>    
-    </ul>
-  </div>  
-</nav>
-<h2 class="section-title">Product</h2>
-                            {% for p in product %}
-                                <div class="product-f-image">
-                                    <img src="{{ path('get_image', { filename: p.image }) }}" width="150" height="150">
-                                    <div class="product-hover">
-                                        <a  href="{{path('ProductShow', {id:p.id})}}" class="btn btn-primary" class="add-to-cart-link" ><i class="fa fa-shopping-cart"></i> Buy </a>
-                                        <a  href="{{path('ProductShow', {id:p.id})}}" class="btn btn-primary" class="view-details-link"><i class="fa fa-link"></i> See details</a>
-                                    </div>
-                                </div>
-                                <h2><a class="card-title">{{p.ProductName}}</a></h2>
-                                <div class="product-carousel-price">
-                                    <ins>{{p.Price}}$</ins> <del>{{p.OldPrice}}$</del>
-                                </div>
-                            {% endfor %} 
-                           
-   <!-- End main content area -->
-</body>
+		<nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+			<a class="navbar-brand" href="#"></a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse" id="collapsibleNavbar">
+				<ul class="navbar-nav">
+					<li class="nav-item">
+						<a class="nav-link" href="#"></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#"></a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="#"></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+		<h2 class="section-title">Product</h2>
+		<div class="row">
+			{% for p in product %}
+				<div class="col-2">
+					<div class="product-f-image">
+						<img src="{{path('get_image', { filename: p.image }) }}" width="150" height="150">
+						<div class="product-hover">
+							<a href="{{path('ProductShow', {id:p.id})}}" class="btn btn-primary" class="add-to-cart-link">
+								<i class="fa fa-shopping-cart"></i>
+								Buy
+							</a>
+							<a href="{{path('ProductShow', {id:p.id})}}" class="btn btn-primary" class="view-details-link">
+								<i class="fa fa-link"></i>
+								See details</a>
+						</div>
+					</div>
+					<h2>
+						<a class="card-title">{{p.ProductName}}</a>
+					</h2>
+					<div class="product-carousel-price">
+						<ins>{{p.Price}}$</ins>
+						<del>{{p.OldPrice}}$</del>
+					</div>
+				</div>
+			{% endfor %}
+		</div>
+		<!-- End main content area -->
+	</body>
 {% endblock %}
-
