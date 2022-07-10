@@ -9,8 +9,6 @@
 			text-align: center;
 		}
 	</style>
-	<br>
-	<br>
 	<body>
 		<div class="jumbotron text-center" style="margin-bottom:0">
 			<img src="Image/Laptopstore.png">
@@ -35,32 +33,35 @@
 				</ul>
 			</div>
 		</nav>
-		<h2 class="section-title">Product</h2>
-		<div class="row">
-			{% for p in product %}
-				<div class="col-2">
-					<div class="product-f-image">
-						<img src="{{path('get_image', { filename: p.image }) }}" width="150" height="150">
-						<div class="product-hover">
-							<a href="{{path('ProductShow', {id:p.id})}}" class="btn btn-primary" class="add-to-cart-link">
-								<i class="fa fa-shopping-cart"></i>
-								Buy
-							</a>
-							<a href="{{path('ProductShow', {id:p.id})}}" class="btn btn-primary" class="view-details-link">
-								<i class="fa fa-link"></i>
-								See details</a>
+		<h2 class="section-title">Product.</h2>
+		<section>
+			<div class="row">
+				{% for p in product %}
+					<div class="col-2">
+						<div class="product-f-image">
+							<img src="{{path('get_image', { filename: p.image }) }}" width="150" height="150">
+							<div class="product-hover">
+								<a href="{{path('ProductShow', {id:p.id})}}" class="btn btn-primary" class="add-to-cart-link">
+									<i class="fa fa-shopping-cart"></i>
+									Buy
+								</a>
+								<a href="{{path('ProductShow', {id:p.id})}}" class="btn btn-primary" class="view-details-link">
+									<i class="fa fa-link"></i>
+									See details</a>
+							</div>
+						</div>
+						<h2>
+							<a class="card-title">{{p.ProductName}}</a>
+						</h2>
+						<div class="product-carousel-price">
+							<ins>{{p.Price}}$</ins>
+							<del>{{p.OldPrice}}$</del>
 						</div>
 					</div>
-					<h2>
-						<a class="card-title">{{p.ProductName}}</a>
-					</h2>
-					<div class="product-carousel-price">
-						<ins>{{p.Price}}$</ins>
-						<del>{{p.OldPrice}}$</del>
-					</div>
-				</div>
-			{% endfor %}
-		</div>
+				{% endfor %}
+			</div>
+		</section>
 		<!-- End main content area -->
 	</body>
+
 {% endblock %}
