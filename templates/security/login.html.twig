@@ -1,56 +1,51 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Log in!{% endblock %}
+{% block title %}Log in!
+{% endblock %}
 
 {% block body %}
-<form method="post">
-    {% if error %}
-        <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
-    {% endif %}
+	<form method="post">
+		{% if error %}
+			<div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+		{% endif %}
 
-    {% if app.user %}
-        <div class="mb-3">
-            You are logged in as {{ app.user.userIdentifier }}, <a href="{{ path('app_logout') }}">Logout</a>
-        </div>
-    {% endif %}
-    <body   >
-    <div class="container-fluid" >
-                <div class=" no-pdding login-box">
-                    <div class="row no-margin w-100 bklmj">
-                        <div class="col-lg-6 col-md-6 log-det">  
-                            <h2>Login</h2>                           
-                            <div class="row no-margin past">
-                                <p>Dont Have an Account? <span>Create your Account</span> </p>
-                            </div>
-                             <div class="input-group mb-3">
-                                <div class="input-group mb-3">
-                                <input type="email" value="{{ last_username }}" placeholder="Email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
-                                </div>
-                                <div class="input-group mb-3">
-                                <input type="password" name="password" placeholder="Password" id="inputPassword" class="form-control" autocomplete="current-password" required>
-                                </div>
+		{% if app.user %}
+			<div class="mb-3">
+				You are logged in as
+				{{ app.user.userIdentifier }},
+				<a href="{{ path('app_logout') }}">Logout</a>
+			</div>
+		{% endif %}
+		<body>
+			<div class="container-fluid">
+				<div class=" no-pdding login-box">
+					<div class="row no-margin w-100 bklmj">
+						<div class="col-lg-6 col-md-6 log-det">
+							<h2>Login</h2>
+							<div class="row no-margin past">
+								<p>Dont Have an Account?
+									<span>Create your Account</span>
+								</p>
+							</div>
+							<div class="input-group mb-3">
+								<div class="input-group mb-3">
+									<input type="email" value="{{ last_username }}" placeholder="Email" name="email" id="inputEmail" class="form-control" autocomplete="email" required autofocus>
+								</div>
+								<div class="input-group mb-3">
+									<input type="password" name="password" placeholder="Password" id="inputPassword" class="form-control" autocomplete="current-password" required>
+								</div>
 
-                            <input type="hidden" name="_csrf_token"
-                                 value="{{ csrf_token('authenticate') }}">
-                                <div class="right-bkij mb-3">
-                                <br>
-                                    <button class="btn btn-success btn-round" type="submit">sign In</button>
-                                </div>  
-                                <br> 
-    
-                            </div>
-                            
-                        </div>
-                        <div class="col-lg-6 col-md-6 box-de">
-                            <div class="ditk-inf">
-                                <h2 class="w-100">Welcome Back </h2>
-                                <p>Simply Create your account by <br> clicking the Signup Button</p>
-                                <button type="butt" class="btn btn-outline-light">Sign Up</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-</body>
-</form>
+								<input type="hidden" name="_csrf_token" value="{{ csrf_token('authenticate') }}">
+								<div class="right-bkij mb-3">
+									<br>
+									<button class="btn btn-success btn-round" type="submit">sign In</button>
+								</div>
+								<br>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</body>
+	</form>
 {% endblock %}
