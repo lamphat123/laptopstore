@@ -59,7 +59,7 @@ class SupplierController extends AbstractController
     /**
      * @Route("/edit/{id}", name="editSupplier")
      */
-    
+
     public function editSupplierAction(ManagerRegistry $res, Request $req, ValidatorInterface $valid, SupplierRepository $repo, $id): Response
     {
         $supplier = $repo->find($id);
@@ -89,4 +89,21 @@ class SupplierController extends AbstractController
             'form' => $supplierForm->createView()
         ]);
     }
-}  
+    /**
+     * @Route("/delete/{id}", name="deleteSupplier")
+     */
+    public function deleteSupplierFunction(SupplierRepository $repo, ManagerRegistry $doc, $id): Response
+    {
+        $supplier = $repo->find($id);
+ 
+        if (!$supplier) {
+            throw
+            $this->createNotFoundException('Invalid ID ' . $id);
+        }
+        $entity = $doc->getManager();
+        $entity->remove($supplier);
+        $entity->flush();
+        return $this->redirectToRoute("app_supplier");
+    }
+}
+
